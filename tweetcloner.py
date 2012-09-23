@@ -10,15 +10,6 @@ def save_config():
   	with open(CONFIG_FILE, 'wb') as configfile:
 		config.write(configfile)
 
-def get_twitter_api():
-	tauth = tweepy.OAuthHandler(config.get('twitter', 'consumer_key'), 
-		config.get('twitter', 'consumer_secret'), 'oob')
-
-	tauth.set_access_token(config.get('twitter', 'access_key'), 
-		config.get('twitter', 'access_secret'))
-
-	return tweepy.API(tauth)
-
 def get_api(service):
 	if not config.has_option(service, 'consumer_key') or not config.has_option(service, 'consumer_secret'):
 		print 'ERROR: missing consumer_key and/or consumer_secret for {0} in configfile "{1}".'.format(service, CONFIG_FILE)
