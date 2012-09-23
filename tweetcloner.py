@@ -54,23 +54,24 @@ def get_api(service):
 def save_access_token(auth, service):
 	auth_url = auth.get_authorization_url()
 
-	print 'please authorize Twitt2StatusNet App at: \n ' + auth_url
+	print 'please authorize TweetCloner App at: \n ' + auth_url
 	pin = raw_input('please enter PIN: ').strip()
 
 	auth.get_access_token(pin)
-	print '* saving access_key and acess_secret for StatusNet in configfile'
+	print '* saving access_key and acess_secret for {0} in configfile'.format(service)
 	config.set(service, 'access_key', auth.access_token.key)
-	config.set(service, 'secret_key', auth.access_token.secret)
+	config.set(service, 'access_secret', auth.access_token.secret)
 	save_config()
 
 def oauth_app(service = 'twitter'):
-	auth = tweepy.OAuthHandler(config(service, 'consumer_key'), 
-		config(service, 'consumer_secret'), 'oob')
+	auth = tweepy.OAuthHandler(config.get(service, 'consumer_key'), 
+		config.get(service, 'consumer_secret'), 'oob')
 
-	if config(service, 'host'):
-		auth.OAUTH_HOST = config(service, 'host')
-	if config(service, 'oauth_root'):
-		auth.OAUTH_ROOT = config(service, 'oauth_root')
+	if config.has_option(service, 'host'):
+		auth.OAUTH_HOST = config.get(service, 'host')
+	if config.has_option(service, 'oauth_root'):
+		auth.OAUTH_ROOT = config.get(service, 'oauth_root')
+	auth.secure = True 
 
 	save_access_token(auth, service)
 
@@ -79,8 +80,8 @@ def main():
 
 	t_api = get_api('twitter')
 
-	last_id = config.getint('twitter', 'last_id')
-	if last_id and last_id > 0:
+	if config.has_option('twitter', 'last_id'):
+		last_id = config.getint('twitter', 'last_id')
 		t_timeline = t_api.user_timeline(since_id = last_id)
 	else:
 		t_timeline = t_api.user_timeline(count = 1)
@@ -91,8 +92,7 @@ def main():
 		for status in t_timeline:
 			print "* posting to status.net: '{0}'".format(status.text)
 			try:
-				#s_api.update_status(status.text)
-				print "a"
+				s_api.update_status(status.text)
 			except ValueError:
 				pass	
 			last_id = status.id
