@@ -75,18 +75,21 @@ def main():
 		last_id = config.getint('twitter', 'last_id')
 		t_timeline = t_api.user_timeline(since_id = last_id)
 	else:
+		last_id = 0
 		t_timeline = t_api.user_timeline(count = 1)
 	
 	if len(t_timeline) > 0:
 		s_api = get_api('statusnet')
 
+		t_timeline.reverse()
 		for status in t_timeline:
-			print "* posting to status.net: '{0}'".format(status.text)
 			try:
+				print "* posting to status.net: '{0}'".format(status.text)
 				s_api.update_status(status.text)
 			except ValueError:
 				pass	
-			last_id = status.id
+			if last_id < status.id:
+				last_id = status.id
 
 		if last_id > 0:
 			print "* savlng last_id: {0}".format(last_id)
