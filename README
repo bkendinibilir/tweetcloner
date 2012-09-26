@@ -57,17 +57,22 @@ oauth_root = /api/oauth/
 replace = #sysadmin=!systems,#devel=!tech,#fun=!fun
 --
 
-* consumer_key, consumer_secret: use above oauth data for twitter accounts and create
-          own data for new oauth app in other microblogging systems like status.net.
-* access_key, access_secret: if not set, script will do an oauth for your account and
-          save the acess_key and access_secret automatically in the configfile.
-* host, api_root, oauth_root: hostname and urls of non twitter microblogging systems.
-* last_id: id of last cloned tweet, updated by script automatically.
-* filter: only clone tweets with following substrings; multiples seperated by ',' 
-          without spaces.
-* replace: replace substrings in cloned tweets, for example #sysadmin=!systems 
-          replaces all strings '#sysadmin' in '!systems'; multiples seperated by ','
-          without spaces.
+* consumer_key, consumer_secret:
+   use above oauth data for twitter accounts and create own data for new oauth app in
+   other microblogging systems like status.net.
+* access_key, access_secret: 
+   if not set, script will do an oauth for your account and save the acess_key and 
+   access_secret automatically in the configfile.
+* host, api_root, oauth_root: 
+   hostname and urls of non twitter microblogging systems.
+* last_id: 
+   id of last cloned tweet, updated by script automatically.
+* filter: 
+   only clone tweets with following substrings; multiple filters seperated by ',' 
+   without spaces.
+* replace: 
+   replace substrings in cloned tweets, for example #sysadmin=!systems replaces all 
+   strings '#sysadmin' in '!systems'; multiples seperated by ',' without spaces.
 
 
 Creating configfile for twitter accounts from scratch an do initial cloning:
