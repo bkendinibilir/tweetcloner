@@ -1,7 +1,7 @@
 Description:
 ------------
 
-Clone status updates (tweets) from and to microblogging system with 
+Clone status updates (tweets) from and to microblogging systems with 
 twitter-compatible API like Twitter, Identi.ca, Status.net, Yammer, etc.
 
 
@@ -12,7 +12,7 @@ Usage:
 usage: tweetcloner.py [-h] [-c CONFIG] [--dry-run] [--version]
                       src_account dst_account [dst_account ...]
 
-Clone status updates (tweets) from and to microblogging system with twitter-
+Clone status updates (tweets) from and to microblogging systems with twitter-
 compatible API like Twitter, Identi.ca, Status.net, Yammer, etc.
 
 positional arguments:

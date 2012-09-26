@@ -184,8 +184,8 @@ class TweetCloner:
 
 def main():
 	parser = argparse.ArgumentParser(prog='tweetcloner.py',
-		description='Clone status updates (tweets) from and to microblogging system '
-		'with twitter-compatible APIs like Twitter, Identi.ca, Status.net, Yammer, etc.')
+		description='Clone status updates (tweets) from and to microblogging systems '
+		'with twitter-compatible API like Twitter, Identi.ca, Status.net, Yammer, etc.')
 	parser.add_argument('src_account', 
 		help='source account, where tweets are copied from.')
 	parser.add_argument('dst_account', nargs='+',
