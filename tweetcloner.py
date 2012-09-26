@@ -120,7 +120,7 @@ class TweetCloner:
 		pin = raw_input('Please enter PIN: ').strip()
 	
 		auth.get_access_token(pin)
-		print '* Saving access_key and acess_secret for account "{0}" in configfile.'.format(service)
+		print '* Saving access_key and access_secret for account "{0}" in configfile.'.format(service)
 		self.config.set(service, 'access_key', auth.access_token.key)
 		self.config.set(service, 'access_secret', auth.access_token.secret)
 		self.save_config()
@@ -177,7 +177,7 @@ class TweetCloner:
 						last_id = status.id
 	
 			if last_id > 0:
-				print '* Savlng last_id of account "{0}": {1}'.format(src, last_id)
+				print '* Saving last_id of account "{0}": {1}'.format(src, last_id)
 				if not self.dry_run:
 					self.config.set(src, 'last_id', last_id)
 					self.save_config()
