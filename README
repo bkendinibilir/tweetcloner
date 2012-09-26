@@ -1,0 +1,92 @@
+Description:
+------------
+
+Clone status updates (tweets) from and to microblogging system with 
+twitter-compatible API like Twitter, Identi.ca, Status.net, Yammer, etc.
+
+
+Usage:
+------
+
+# ./tweetcloner.py -h
+usage: tweetcloner.py [-h] [-c CONFIG] [--dry-run] [--version]
+                      src_account dst_account [dst_account ...]
+
+Clone status updates (tweets) from and to microblogging system with twitter-
+compatible API like Twitter, Identi.ca, Status.net, Yammer, etc.
+
+positional arguments:
+  src_account           source account, where tweets are copied from.
+  dst_account           destination accounts, where the tweets are cloned to.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+                        path to config file (default: tweetcloner.cfg)
+  --dry-run             show what would have been cloned, no writing
+  --version             show program's version number and exit
+
+Example for cron job:
+
+*/5 * * * * someuser /path/to/tweetcloner.py -c /path/to/tweetcloner.cfg twitter_user statusnet_user
+
+
+Example configfile:
+-------------------
+
+tweetconfig.cfg:
+--
+# my twitter account
+[bk3n]
+consumer_key = SscEYZXGFrof1Hzt8j9EOQ
+consumer_secret = 8dbW5YzqVEyaXlctGKNEMmNb4sB5DP0UKXzE3qVZDY
+access_key = 1234567-abcdefghijklmnopqrstuvxyz1234567890abcdefg
+access_secret = abcdefghijklmnopqrstuvwxyz1234567890abcdefg
+filter = #sysadmin,#devel,#fun
+last_id = 250591832357105664
+
+# my status.net account
+[bkendinibilir]
+consumer_key = 823gbue73saRnjsf2367834nA835h834
+consumer_secret = ng348hniabu3SFAhw38jase453msduwf
+access_key = 1234567-abcdefghijklmnopqrstuvxyz1234567890abcdefg
+access_secret = abcdefghijklmnopqrstuvwxyz1234567890abcdefg
+host = hostname.of.internal.status.net.server.com
+api_root = /api/
+oauth_root = /api/oauth/
+replace = #sysadmin=!systems,#devel=!tech,#fun=!fun
+--
+
+* consumer_key, consumer_secret: use above oauth data for twitter accounts and create own key 
+           and secret for an oauth app in other microblogging systems like status.net.
+* access_key, access_secret: if not set, script will do an oauth for your account and save
+           the acess_key and access_secret automatically in the configfile.
+* filter: only clone tweets with following substrings; multiples seperated by ','; no spaces!
+* last_id: id of last cloned tweet, updated by script automatically.
+* host, api_root, oauth_root: hostname and urls of non twitter microblogging systems.
+* replace: replace substrings in cloned tweets, for example #sysadmin=!systems replaces all
+           strings '#sysadmin' in '!systems'; multiples seperated by ','; no spaces!
+
+
+Creating configfile for twitter accounts from scratch an do initial cloning:
+----------------------------------------------------------------------------
+
+# ./tweetcloner.py bk3n twitter2
+Cannot find configfile "tweetcloner.cfg", create empty one? (y/N): y
+Cannot find section for account "bk3n" in configfile "tweetcloner.cfg".
+Do you want to add a new section for "bk3n" as a new twitter account? (y/N): y
+Missing access_key and/or access_secret for bk3n, requesting new token...
+Please authorize TweetCloner app at: 
+ https://api.twitter.com/oauth/authorize?oauth_token=82F74gPx48jhvwjMNW84jViz58sFghdb9jG8jsOoj88
+Please enter PIN: 1234567
+* Saving access_key and acess_secret for account "twitter2" in configfile.
+Cannot find section for account "twitter2" in configfile "tweetcloner.cfg".
+Do you want to add a new section for "twitter2" as a new twitter account? (y/N): y
+Missing access_key and/or access_secret for twitter2, requesting new token...
+Please authorize TweetCloner app at: 
+ https://api.twitter.com/oauth/authorize?oauth_token=nbuaf4busSFhw73nAhw3uas834197HSdfg38sdj9sa9
+Please enter PIN: 9876543
+* Saving access_key and acess_secret for account "twitter2" in configfile.
+* Posting to account "twitter2": "Permanently remove files and folders from a #git repository: http://t.co/mLVZRGF"
+* Savlng last_id of account "bk3n": 250123456789234567
+
