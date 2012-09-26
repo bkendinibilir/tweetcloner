@@ -68,11 +68,11 @@ replace = #sysadmin=!systems,#devel=!tech,#fun=!fun
 * last_id: 
    id of last cloned tweet, updated by script automatically.
 * filter: 
-   only clone tweets with following substrings; multiple filters seperated by ',' 
+   only clone tweets with following substrings; multiple filters separated by ',' 
    without spaces.
 * replace: 
    replace substrings in cloned tweets, for example #sysadmin=!systems replaces all 
-   strings '#sysadmin' in '!systems'; multiples seperated by ',' without spaces.
+   strings '#sysadmin' in '!systems'; multiples separated by ',' without spaces.
 
 
 Creating configfile for twitter accounts from scratch an do initial cloning:
