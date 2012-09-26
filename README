@@ -61,8 +61,9 @@ replace = #sysadmin=!systems,#devel=!tech,#fun=!fun
    use above oauth data for twitter accounts and create own data for new oauth app in
    other microblogging systems like status.net.
 * access_key, access_secret: 
-   if not set, script will do an oauth for your account and save the acess_key and 
-   access_secret automatically in the configfile.
+   if not set, script will do an oauth for your account and save the access_key and 
+   access_secret automatically in the configfile 
+   (see below "Missing access_key and/or access_secret for bk3n, ...)
 * host, api_root, oauth_root: 
    hostname and urls of non twitter microblogging systems.
 * last_id: 
@@ -75,8 +76,8 @@ replace = #sysadmin=!systems,#devel=!tech,#fun=!fun
    strings '#sysadmin' in '!systems'; multiples separated by ',' without spaces.
 
 
-Creating configfile for twitter accounts from scratch an do initial cloning:
-----------------------------------------------------------------------------
+Creating new configfile for twitter accounts from scratch an do initial cloning:
+--------------------------------------------------------------------------------
 
 # ./tweetcloner.py bk3n twitter2
 Cannot find configfile "tweetcloner.cfg", create empty one? (y/N): y
@@ -86,14 +87,14 @@ Missing access_key and/or access_secret for bk3n, requesting new token...
 Please authorize TweetCloner app at: 
  https://api.twitter.com/oauth/authorize?oauth_token=82F74gPx48jhvwjMNW84j.....
 Please enter PIN: 1234567
-* Saving access_key and acess_secret for account "twitter2" in configfile.
+* Saving access_key and access_secret for account "twitter2" in configfile.
 Cannot find section for account "twitter2" in configfile "tweetcloner.cfg".
 Do you want to add a new section for "twitter2" as a new twitter account? (y/N): y
 Missing access_key and/or access_secret for twitter2, requesting new token...
 Please authorize TweetCloner app at: 
  https://api.twitter.com/oauth/authorize?oauth_token=nbuaf4busSFhw73nAhw3u......
 Please enter PIN: 9876543
-* Saving access_key and acess_secret for account "twitter2" in configfile.
+* Saving access_key and access_secret for account "twitter2" in configfile.
 * Posting to account "twitter2": "Permanently remove files and folders from a #git 
   repository: http://t.co/mLVZRGF"
 * Savlng last_id of account "bk3n": 250123456789234567
