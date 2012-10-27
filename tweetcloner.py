@@ -25,12 +25,16 @@ class TweetCloner:
 	TWEETCLONER_CONSUMER_KEY='SscEYZXGFrof1Hzt8j9EOQ'
 	TWEETCLONER_CONSUMER_SECRET='8dbW5YzqVEyaXlctGKNEMmNb4sB5DP0UKXzE3qVZDY'
 
-	def __init__(self, configfile):
+	def __init__(self, configfile, debug=False):
 		self.src_account = ""
 		self.dst_accounts = []
 		self.initial_tweetcount = 1
 		self.dry_run = False
 		self.configfile = configfile
+		self.debug = debug
+		
+		if self.debug:
+			tweepy.debug()
 
 		self.read_config()
 
@@ -128,7 +132,7 @@ class TweetCloner:
 	def oauth_app(self, service):
 		auth = tweepy.OAuthHandler(self.config.get(service, 'consumer_key'), 
 			self.config.get(service, 'consumer_secret'), 'oob')
-	
+
 		if self.config.has_option(service, 'host'):
 			auth.OAUTH_HOST = self.config.get(service, 'host')
 		if self.config.has_option(service, 'oauth_root'):
@@ -194,11 +198,13 @@ def main():
 		help='path to config file (default: tweetcloner.cfg)')
 	parser.add_argument('--dry-run', action='store_true',
 		help='show what would have been cloned, no writing')
+	parser.add_argument('-d', '--debug', action='store_true', 
+		help='running in debug mode, showing http communication')
 	parser.add_argument('--version', action='version', version='%(prog)s v0.5')
 	
 	args = parser.parse_args()
 
-	tc = TweetCloner(args.config)
+	tc = TweetCloner(args.config, debug = args.debug)
 	tc.src_account  = args.src_account
 	tc.dst_accounts = args.dst_account
 	tc.dry_run      = args.dry_run
