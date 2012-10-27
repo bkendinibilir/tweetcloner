@@ -61,7 +61,7 @@ replace = #sysadmin=!systems,#devel=!tech,#fun=!fun
    use above oauth data for twitter accounts and set own data for new registered
    oauth client apps in other microblogging systems like status.net.
 * access_key, access_secret: 
-   if not set, script will do and oauth for your account and save the access_key 
+   if not set, script will do an oauth for your account and save the access_key 
    and access_secret automatically in the configfile 
    (see below "Missing access_key and/or access_secret for bk3n, ...)
 * host, api_root, oauth_root: 
@@ -87,7 +87,7 @@ Missing access_key and/or access_secret for bk3n, requesting new token...
 Please authorize TweetCloner app at: 
  https://api.twitter.com/oauth/authorize?oauth_token=82F74gPx48jhvwjMNW84j.....
 Please enter PIN: 1234567
-* Saving access_key and access_secret for account "twitter2" in configfile.
+* Saving access_key and access_secret for account "bk3n" in configfile.
 Cannot find section for account "twitter2" in configfile "tweetcloner.cfg".
 Do you want to add a new section for "twitter2" as a new twitter account? (y/N): y
 Missing access_key and/or access_secret for twitter2, requesting new token...
