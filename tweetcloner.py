@@ -21,6 +21,19 @@ import os, sys, argparse
 import ConfigParser
 import tweepy
 
+# Workaround for Python 2.7.3:
+class PatchedTweepyAPI(tweepy.API):
+	# httplib in Python 2.7.3 doesn't set HTTP-header "Content-Length", if HTTP-POST data is empty,
+	# but Twitter API-Server do need "Content-Length", even if it is 0.
+	# Forcing Content-Length by overwriting update method and set post_data=" "
+	# Python bug: http://bugs.python.org/issue14721
+
+	def update_status(self, *args, **kargs):
+		return tweepy.binder.bind_api(path = '/statuses/update.json', method = 'POST',
+			payload_type = 'status', 
+			allowed_param = ['status', 'in_reply_to_status_id', 'lat', 'long', 'source', 'place_id'],
+			require_auth = True)(self, post_data=" ", *args, **kargs)
+
 class TweetCloner:
 	TWEETCLONER_CONSUMER_KEY='SscEYZXGFrof1Hzt8j9EOQ'
 	TWEETCLONER_CONSUMER_SECRET='8dbW5YzqVEyaXlctGKNEMmNb4sB5DP0UKXzE3qVZDY'
@@ -115,7 +128,7 @@ class TweetCloner:
 		auth.set_access_token(self.config.get(service, 'access_key'), 	
 			self.config.get(service, 'access_secret'))
 	
-		return tweepy.API(auth, host = s_host, api_root = s_aroot, secure = True)
+		return PatchedTweepyAPI(auth, host = s_host, api_root = s_aroot, secure = True)
 	
 	def save_access_token(self, auth, service):
 		auth_url = auth.get_authorization_url()
